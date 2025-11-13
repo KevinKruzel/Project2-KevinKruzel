@@ -70,7 +70,7 @@ with col3_r3:
 st.divider()
 
 # Footer
-st.caption("**Data source:** https://www.kaggle.com/datasets/lainguyn123/student-performance-factors")
+st.caption("**Data source:** https://www.kaggle.com/datasets/kainatjamil12/coffe-sale/data")
 
 with st.expander("Data Preview"):
     st.dataframe(df)
@@ -80,6 +80,6 @@ csv_data = df.to_csv(index=False).encode('utf-8')
 st.download_button(
     label="📥 Download Raw Data (CSV)",
     data=csv_data,
-    file_name="StudentPerformanceFactors.csv",
+    file_name="Coffee_sales.csv",
     mime="text/csv",
 )
