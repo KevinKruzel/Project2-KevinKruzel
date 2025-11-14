@@ -58,6 +58,7 @@ with big_col_r1:
         x="Date",
         y="Total_Revenue",
         markers=True,
+        title=""
     )
     fig.update_layout(
         xaxis_title="Date",
@@ -70,8 +71,6 @@ with big_col_r1:
     chart_placeholder.plotly_chart(fig, use_container_width=True)
 
 with col3_r1:
-    st.subheader("How to Read This Chart — Daily Revenue Over Time")
-
     st.markdown("""
 **What question is this chart exploring?**  
 *How does total coffee revenue change over time?*
@@ -155,8 +154,6 @@ with col3_r2:
 col1_r3, col2_r3, col3_r3 = st.columns(3)
 
 with col1_r3:
-    st.subheader("How to Read This Chart — Coffee Types Sold")
-
     st.markdown("""
 **What question is this chart exploring?**  
 *What is the proportion of each type of coffee being sold?*
@@ -175,8 +172,6 @@ with col1_r3:
     """)
 
 with col2_r3:
-    st.subheader("How to Read This Chart — Revenue by Weekday")
-
     st.markdown("""
 **What question is this chart exploring?**  
 *Which days of the week generate the most sales revenue?*
@@ -195,8 +190,6 @@ with col2_r3:
     """)
 
 with col3_r3:
-    st.subheader("How to Read This Chart — Sales by Time of Day")
-
     st.markdown("""
 **What question is this chart exploring?**  
 *What times of day have the highest sales activity?*
