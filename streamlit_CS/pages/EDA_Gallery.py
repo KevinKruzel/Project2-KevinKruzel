@@ -57,16 +57,15 @@ with col3_r1:
 col1_r2, col2_r2, col3_r2 = st.columns(3)
 
 with col1_r2:
-    coffee_sales = df.groupby("coffee_name")["money"].sum().reset_index()
-    coffee_sales.columns = ["Coffee_Type", "Total_Revenue"]
+    coffee_counts = df["coffee_name"].value_counts().reset_index()
+    coffee_counts.columns = ["Coffee_Type", "Count"]
 
-    # Create Pie Chart
     fig = px.pie(
-        coffee_sales,
+        coffee_counts,
         names="Coffee_Type",
-        values="Total_Revenue",
-        title="Revenue Share by Coffee Type",
-        hole=0.3
+        values="Count",
+        title="Distribution of Coffee Types Sold",
+        hole=0.3  # donut style; remove if you want full pie
     )
 
     fig.update_traces(
