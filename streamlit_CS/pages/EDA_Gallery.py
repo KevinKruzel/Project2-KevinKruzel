@@ -57,16 +57,60 @@ with col3_r1:
 col1_r2, col2_r2, col3_r2 = st.columns(3)
 
 with col1_r2:
-    st.subheader("Row 2 — Column 1")
-    st.write("Placeholder content to be filled later.")
+    coffee_sales = df.groupby("coffee_name")["money"].sum().reset_index()
+    coffee_sales.columns = ["Coffee_Type", "Total_Revenue"]
+
+    # Create Pie Chart
+    fig = px.pie(
+        coffee_sales,
+        names="Coffee_Type",
+        values="Total_Revenue",
+        title="Revenue Share by Coffee Type",
+        hole=0.3
+    )
+
+    fig.update_traces(
+        textposition="inside",
+        textinfo="percent+label"
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
 
 with col2_r2:
-    st.subheader("Row 2 — Column 2")
-    st.write("Placeholder content to be filled later.")
+    weekday_sales = df.groupby(["Weekday", "Weekdaysort"])["money"].sum().reset_index()
+    weekday_sales = weekday_sales.sort_values("Weekdaysort")  # ensures correct order
+
+    fig = px.bar(
+        weekday_sales,
+        x="Weekday",
+        y="money",
+        title="Total Revenue by Weekday",
+        text_auto=True,
+    )
+
+    fig.update_layout(
+        xaxis_title="Day of Week",
+        yaxis_title="Total Revenue ($)",
+        showlegend=False
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
 
 with col3_r2:
-    st.subheader("Row 2 — Column 3")
-    st.write("Placeholder content to be filled later.")
+    fig = px.histogram(
+        df,
+        x="hour_of_day",
+        nbins=24,  # one bin per hour
+        title="Sales Activity by Time of Day",
+    )
+
+    fig.update_layout(
+        xaxis_title="Hour of Day (24-hour format)",
+        yaxis_title="Number of Sales",
+        bargap=0.05
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
 
 # ───────────────────────────
 # ROW 3
