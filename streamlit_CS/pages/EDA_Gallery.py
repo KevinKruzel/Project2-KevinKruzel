@@ -70,8 +70,24 @@ with big_col_r1:
     chart_placeholder.plotly_chart(fig, use_container_width=True)
 
 with col3_r1:
-    st.subheader("Row 1 — Column 3")
-    st.write("Placeholder content to be filled later.")
+    st.subheader("How to Read This Chart — Daily Revenue Over Time")
+
+    st.markdown("""
+**What question is this chart exploring?**  
+*How does total coffee revenue change over time?*
+
+**How to read this chart**
+- The x-axis represents calendar dates.
+- The y-axis shows the total revenue earned from coffee sales on each day.
+- Each point represents a full day of revenue.
+- Use the slider below the chart to zoom into a specific date range (for example, one week or a month).
+
+**Insights from the data**
+- Revenue fluctuates very noticeably between days, indicating natural peaks and slower periods.
+- Some days show significantly higher revenue, suggesting busy or high-traffic days.
+- There are also occasional dips that stand out compared to surrounding days.
+- The interactive slider makes it clear that variability exists even within small time windows.
+    """)
 
 # ───────────────────────────
 # ROW 2
@@ -139,16 +155,64 @@ with col3_r2:
 col1_r3, col2_r3, col3_r3 = st.columns(3)
 
 with col1_r3:
-    st.subheader("Row 3 — Column 1")
-    st.write("Placeholder content to be filled later.")
+    st.subheader("How to Read This Chart — Coffee Types Sold")
+
+    st.markdown("""
+**What question is this chart exploring?**  
+*What is the proportion of each type of coffee being sold?*
+
+**How to read this chart**
+- Each slice represents one type of coffee beverage that the store sells.
+- The size of the slice shows the proportion of total transactions belonging to that drink.
+- Percentage labels show how large each category is relative to the whole.
+- Hovering over the slices of the pie displays the exact count values.
+
+**Insights from the data**
+- Some drinks are significantly more popular than others, making up a larger share of purchases.
+- A relatively small number of coffee types account for a majority of the total sales.
+- Smaller slices represent drinks bought less often.
+- The distribution highlights possible customer drink preferences.
+    """)
 
 with col2_r3:
-    st.subheader("Row 3 — Column 2")
-    st.write("Placeholder content to be filled later.")
+    st.subheader("How to Read This Chart — Revenue by Weekday")
+
+    st.markdown("""
+**What question is this chart exploring?**  
+*Which days of the week generate the most sales revenue?*
+
+**How to read this chart**
+- The x-axis shows each weekday (Monday–Sunday).
+- The height of each bar represents total revenue earned that day.
+- Taller bars mean more sales occurred on that day.
+- Numeric labels make comparison easier.
+
+**Insights from the data**
+- Certain days on average generate more revenue than others.
+- The highest bars indicate the busiest days of the week for the business, most notably the weekdays.
+- Slower days stand out clearly, most notably the weekends, and may represent less shop activity.
+- The pattern suggests predictable weekly sales cycles.
+    """)
 
 with col3_r3:
-    st.subheader("Row 3 — Column 3")
-    st.write("Placeholder content to be filled later.")
+    st.subheader("How to Read This Chart — Sales by Time of Day")
+
+    st.markdown("""
+**What question is this chart exploring?**  
+*What times of day have the highest sales activity?*
+
+**How to read this chart**
+- The x-axis shows the hour of day using a 24-hour clock (6 is 6 AM, 12 is Noon, 18 is 6 PM, etc.).
+- The height of each bar indicates how many transactions occurred within that hour.
+- Peaks show high-demand time windows and valleys show slower periods.
+- Each bar covers eactly a one hour time frame.
+
+**Insights from the data**
+- Sales tend to cluster around certain daily time periods, most notably the mornings and evenings.
+- Morning hours appear to be significantly busier than late afternoon or evening.
+- Overnight or early-morning hours comparatively less activity.
+- The chart reveals strong daily purchasing patterns aligned with coffee consumption habits.
+    """)
 
 st.divider()
 
