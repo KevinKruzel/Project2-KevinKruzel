@@ -26,26 +26,48 @@ st.title("Coffee Sales EDA Gallery")
 big_col_r1, col3_r1 = st.columns([2, 1])
 
 with big_col_r1:
+    st.subheader("Daily Coffee Revenue Over Time")
     df["Date"] = pd.to_datetime(df["Date"])
 
-    daily_sales = df.groupby(df["Date"].dt.date)["money"].sum().reset_index()
-    daily_sales.columns = ["Date", "Total_Revenue"]
-
-    fig = px.line(
-        daily_sales,
-        x="Date",
-        y="Total_Revenue",
-        title="Daily Coffee Revenue Over Time",
-        markers=True
+    daily_sales = (
+        df.groupby(df["Date"].dt.date)["money"]
+        .sum()
+        .reset_index()
+        .rename(columns={"Date": "Date", "money": "Total_Revenue"})
     )
 
+    chart_placeholder = st.empty()
+    slider_placeholder = st.empty()
+
+    min_date = daily_sales["Date"].min()
+    max_date = daily_sales["Date"].max()
+
+    start_date, end_date = slider_placeholder.slider(
+        "Select date range to display",
+        min_value=min_date,
+        max_value=max_date,
+        value=(min_date, max_date),
+        format="YYYY-MM-DD",
+    )
+
+    mask = (daily_sales["Date"] >= start_date) & (daily_sales["Date"] <= end_date)
+    filtered_sales = daily_sales[mask]
+
+    fig = px.line(
+        filtered_sales,
+        x="Date",
+        y="Total_Revenue",
+        markers=True,
+    )
     fig.update_layout(
         xaxis_title="Date",
         yaxis_title="Total Revenue ($)",
-        hovermode="x unified"
+        hovermode="x unified",
+        margin=dict(l=10, r=10, t=40, b=10),
+        title=None,
     )
 
-    st.plotly_chart(fig, use_container_width=True)
+    chart_placeholder.plotly_chart(fig, use_container_width=True)
 
 with col3_r1:
     st.subheader("Row 1 — Column 3")
