@@ -7,9 +7,11 @@ import seaborn as sns
 import numpy as np
 from pathlib import Path
 
-# Load new dataset
+
 DATA_PATH = Path(__file__).parent.parent / "data" / "Coffee_sales.csv"
 df = pd.read_csv(DATA_PATH)
+
+COFFEE_COLORS = ["#6F4E37", "#8B5A2B", "#A47148", "#C19A6B", "#D2B48C", "#F6E2B3"]
 
 st.set_page_config(
     page_title="Coffee Sales EDA Gallery",
@@ -66,6 +68,7 @@ with big_col_r1:
         hovermode="x unified",
         margin=dict(l=10, r=10, t=40, b=10),
     )
+    fig.update_traces(line_color="#6F4E37")
 
     chart_placeholder.plotly_chart(fig, use_container_width=True)
 
@@ -101,7 +104,8 @@ with col1_r2:
         names="Coffee_Type",
         values="Count",
         title="Distribution of Coffee Types Sold",
-        hole=0.3  # donut style; remove if you want full pie
+        hole=0.3,
+        color_discrete_sequence=COFFEE_COLORS
     )
 
     fig.update_traces(
@@ -121,6 +125,7 @@ with col2_r2:
         y="money",
         title="Total Revenue by Weekday",
         text_auto=True,
+        color_discrete_sequence=["#6F4E37"] 
     )
 
     fig.update_layout(
@@ -137,6 +142,7 @@ with col3_r2:
         x="hour_of_day",
         nbins=24,  # one bin per hour
         title="Sales Activity by Time of Day",
+        color_discrete_sequence=["#A47148"]
     )
 
     fig.update_layout(
