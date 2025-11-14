@@ -65,7 +65,6 @@ with big_col_r1:
         yaxis_title="Total Revenue ($)",
         hovermode="x unified",
         margin=dict(l=10, r=10, t=40, b=10),
-        title=None,
     )
 
     chart_placeholder.plotly_chart(fig, use_container_width=True)
