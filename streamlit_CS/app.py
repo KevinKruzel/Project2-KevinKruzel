@@ -1,36 +1,30 @@
 import streamlit as st
 
 st.set_page_config(
-    page_title="Student Performance Factors",
-    page_icon="📊",
+    page_title="Coffee Sales - Project 2",
+    page_icon="☕",
     layout="wide"
 )
 
-st.title("Student Performance Factors")
+st.title("Coffee Sales - Project 2 by Kevin Kruzel")
 
 st.markdown(
     """
-    ### 📚 About This Dashboard
+    ### ☕ About this Project
     
-    This interactive dashboard analyzes factors that influence student academic performance based on a dataset 
-    of over 6,000 students. Explore how various elements correlate with exam scores.
+    This project explores and analyzes the factors that influence the revenue a coffee shop earns using a dataset
+    containing the details 3,547 transactions taken over the time period of about a year. This website uses several
+    pages to explore the entire process behind the analysis.
     
-    **Key Features:**
-    - 🎨 **Customizable Themes** - Choose from 6 color schemes
-    - 📊 **Interactive Filters** - Filter by gender, income, school type, and attendance
-    - 📈 **Visual Analytics** - Scatter plots, heatmaps, and pie charts
-    - 💾 **Data Export** - Download the raw dataset for further analysis
+    **Pages:**
+    - ☕ **app** - Overview of the Project
+    - 📄 **Bio** - Professional bio of Kevin Kruzel
+    - 📊 **EDA Gallery** - Exploratory data analysis of the dataset, complete with charts and initial observations
+    - 📈 **Dashboard** - Visuals that help explore the dataset in more depth
+    - 🧭 **Future Works** - Next steps and reflection of the project
     
-    **Navigate to the Student Factors page** using the sidebar to begin exploring the data.
+    Navigate using the sidebar to begin exploring the other pages of the project.
     """
 )
-
-with st.expander("How this app is organized (for students)"):
-    st.write(
-        """
-        - `app.py` is the entry point.
-        - Pages live in the `/pages` folder and auto-appear in the sidebar.
-        """
-    )
 
 st.caption("Built with Streamlit • Class template")
