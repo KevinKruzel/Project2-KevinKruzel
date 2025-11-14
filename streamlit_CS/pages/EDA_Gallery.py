@@ -26,8 +26,26 @@ st.title("Coffee Sales EDA Gallery")
 big_col_r1, col3_r1 = st.columns([2, 1])
 
 with big_col_r1:
-    st.subheader("Row 1 — Column 1 and 2")
-    st.write("Placeholder content to be filled later.")
+    df["Date"] = pd.to_datetime(df["Date"])
+
+    daily_sales = df.groupby(df["Date"].dt.date)["money"].sum().reset_index()
+    daily_sales.columns = ["Date", "Total_Revenue"]
+
+    fig = px.line(
+        daily_sales,
+        x="Date",
+        y="Total_Revenue",
+        title="Daily Coffee Revenue Over Time",
+        markers=True
+    )
+
+    fig.update_layout(
+        xaxis_title="Date",
+        yaxis_title="Total Revenue ($)",
+        hovermode="x unified"
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
 
 with col3_r1:
     st.subheader("Row 1 — Column 3")
