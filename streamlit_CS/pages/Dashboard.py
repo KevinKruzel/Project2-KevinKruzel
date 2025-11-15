@@ -220,7 +220,7 @@ with col2_r3:
             margin=dict(l=10, r=10, t=40, b=10),
         )
 
-        fig.update_yaxes(range=[0, 23], dtick=2)
+        fig.update_yaxes(autorange=True)
 
         st.plotly_chart(fig, use_container_width=True)
 with col3_r3:
