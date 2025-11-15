@@ -16,14 +16,73 @@ st.set_page_config(
 
 st.title("Coffee Sales Dashboard")
 
+DATA_PATH = Path(__file__).parent.parent / "data" / "Coffee_sales.csv"
+df = pd.read_csv(DATA_PATH)
+df["Date"] = pd.to_datetime(df["Date"])
 
 # ───────────────────────────
-# SIDEBAR FILTERS (Placeholder Only)
+# SIDEBAR FILTERS
 # ───────────────────────────
 st.sidebar.header("Filters")
-st.sidebar.write("Sidebar filter controls will go here.")
-st.sidebar.write("Example: date range, coffee type, weekday, time of day, etc.")
 
+# Date range slider
+min_date = df["Date"].min().date()
+max_date = df["Date"].max().date()
+
+date_range = st.sidebar.slider(
+    "Date range",
+    min_value=min_date,
+    max_value=max_date,
+    value=(min_date, max_date),
+    format="YYYY-MM-DD",
+)
+
+# Hour-of-day slider
+min_hour = int(df["hour_of_day"].min())
+max_hour = int(df["hour_of_day"].max())
+
+hour_range = st.sidebar.slider(
+    "Hour of day",
+    min_value=min_hour,
+    max_value=max_hour,
+    value=(min_hour, max_hour),
+    help="Filter transactions by hour of day (24-hour clock).",
+)
+
+# Coffee type checkboxes
+st.sidebar.subheader("Coffee types")
+
+coffee_types = sorted(df["coffee_name"].unique())
+selected_coffees = []
+
+for coffee in coffee_types:
+    checked = st.sidebar.checkbox(coffee, value=True, key=f"coffee_{coffee}")
+    if checked:
+        selected_coffees.append(coffee)
+
+# Build filtered dataframe
+df_filtered = df.copy()
+
+# Apply date filter
+start_date, end_date = date_range
+df_filtered = df_filtered[
+    (df_filtered["Date"].dt.date >= start_date)
+    & (df_filtered["Date"].dt.date <= end_date)
+]
+
+# Apply hour-of-day filter
+start_hour, end_hour = hour_range
+df_filtered = df_filtered[
+    (df_filtered["hour_of_day"] >= start_hour)
+    & (df_filtered["hour_of_day"] <= end_hour)
+]
+
+# Apply coffee type filter
+if selected_coffees:
+    df_filtered = df_filtered[df_filtered["coffee_name"].isin(selected_coffees)]
+else:
+    # If nothing is selected, keep an empty frame
+    df_filtered = df_filtered.iloc[0:0]
 
 # ───────────────────────────
 # ROW 1
