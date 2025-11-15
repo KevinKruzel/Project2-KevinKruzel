@@ -89,12 +89,26 @@ else:
 col1_r1, col2_r1, col3_r1 = st.columns(3)
 
 with col1_r1:
-    st.subheader("Row 1 — Column 1")
-    st.write("Placeholder for KPI or summary element.")
+    st.subheader("Total Revenue")
+    if df_filtered.empty:
+        st.metric(label="Total Revenue", value="$0")
+    else:
+        total_revenue = df_filtered["money"].sum()
+        st.metric(
+            label="Total Revenue",
+            value=f"${total_revenue:,.2f}"
+        )
 
 with col2_r1:
-    st.subheader("Row 1 — Column 2")
-    st.write("Placeholder for KPI or summary element.")
+    st.subheader("Average Revenue per Sale")
+    if df_filtered.empty:
+        st.metric(label="Avg Revenue / Sale", value="$0")
+    else:
+        avg_sale = df_filtered["money"].mean()
+        st.metric(
+            label="Avg Revenue / Sale",
+            value=f"${avg_sale:,.2f}"
+        )
 
 with col3_r1:
     st.subheader("Row 1 — Column 3")
