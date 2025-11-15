@@ -198,7 +198,6 @@ with col2_r3:
     if df_filtered.empty:
         st.warning("No data available for the selected filters.")
     else:
-        # Ensure months are in the correct order using Monthsort
         month_order = (
             df_filtered[["Month_name", "Monthsort"]]
             .drop_duplicates()
@@ -206,7 +205,6 @@ with col2_r3:
             .tolist()
         )
 
-        # Boxplot of hour_of_day for each month (one point per sale)
         fig = px.box(
             df_filtered,
             x="Month_name",
@@ -222,7 +220,6 @@ with col2_r3:
             margin=dict(l=10, r=10, t=40, b=10),
         )
 
-        # Optional: tidy up y-axis ticks
         fig.update_yaxes(range=[0, 23], dtick=2)
 
         st.plotly_chart(fig, use_container_width=True)
@@ -254,7 +251,7 @@ with col3_r3:
             title="Total Revenue by Month",
             text_auto=True,
             category_orders={"Month_name": month_order},
-            color_discrete_sequence=["#6F4E37"]  # espresso brown
+            color_discrete_sequence=["#A47148"]
         )
 
         fig.update_layout(
