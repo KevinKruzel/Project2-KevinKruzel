@@ -111,8 +111,15 @@ with col2_r1:
         )
 
 with col3_r1:
-    st.subheader("Row 1 — Column 3")
-    st.write("Placeholder for KPI or summary element.")
+    st.subheader("Total Sales Count")
+    if df_filtered.empty:
+        st.metric(label="Total Sales", value="0")
+    else:
+        total_sales = len(df_filtered)
+        st.metric(
+            label="Total Sales",
+            value=f"{total_sales:,}"
+        )
 
 
 # ───────────────────────────
