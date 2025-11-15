@@ -65,21 +65,18 @@ for coffee in coffee_types:
 # Build filtered dataframe
 df_filtered = df.copy()
 
-# Apply date filter
 start_date, end_date = date_range
 df_filtered = df_filtered[
     (df_filtered["Date"].dt.date >= start_date)
     & (df_filtered["Date"].dt.date <= end_date)
 ]
 
-# Apply hour-of-day filter
 start_hour, end_hour = hour_range
 df_filtered = df_filtered[
     (df_filtered["hour_of_day"] >= start_hour)
     & (df_filtered["hour_of_day"] <= end_hour)
 ]
 
-# Apply coffee type filter
 if selected_coffees:
     df_filtered = df_filtered[df_filtered["coffee_name"].isin(selected_coffees)]
 else:
@@ -165,16 +162,113 @@ with col3_r2:
 col1_r3, col2_r3, col3_r3 = st.columns(3)
 
 with col1_r3:
-    st.subheader("Row 3 — Column 1")
-    st.write("Placeholder for chart.")
+    st.subheader("Revenue by Coffee Type")
+
+    if df_filtered.empty:
+        st.warning("No data available for the selected filters.")
+    else:
+        # Aggregate revenue by coffee type
+        coffee_revenue = (
+            df_filtered.groupby("coffee_name")["money"]
+            .sum()
+            .reset_index()
+            .sort_values("money", ascending=False)
+        )
+
+        fig = px.bar(
+            coffee_revenue,
+            x="coffee_name",
+            y="money",
+            title="Total Revenue by Coffee Type",
+            text_auto=True,
+            color_discrete_sequence=["#6F4E37"]
+        )
+
+        fig.update_layout(
+            xaxis_title="Coffee Type",
+            yaxis_title="Total Revenue ($)",
+            margin=dict(l=10, r=10, t=40, b=10),
+        )
+
+        st.plotly_chart(fig, use_container_width=True)
 
 with col2_r3:
-    st.subheader("Row 3 — Column 2")
-    st.write("Placeholder for chart.")
+    st.subheader("Distribution of Hourly Revenue by Month")
+
+    if df_filtered.empty:
+        st.warning("No data available for the selected filters.")
+    else:
+        hourly_by_month = (
+            df_filtered
+            .groupby(["Month_name", "Monthsort", "hour_of_day"])["money"]
+            .sum()
+            .reset_index()
+            .rename(columns={"money": "hourly_revenue"})
+        )
+
+        hourly_by_month = hourly_by_month.sort_values("Monthsort")
+        month_order = (
+            hourly_by_month[["Month_name", "Monthsort"]]
+            .drop_duplicates()
+            .sort_values("Monthsort")["Month_name"]
+            .tolist()
+        )
+
+        fig = px.box(
+            hourly_by_month,
+            x="Month_name",
+            y="hourly_revenue",
+            category_orders={"Month_name": month_order},
+            title="Hourly Revenue Distribution by Month",
+            color_discrete_sequence=["#8B5A2B"],  # coffee brown
+        )
+
+        fig.update_layout(
+            xaxis_title="Month",
+            yaxis_title="Hourly Revenue ($)",
+            margin=dict(l=10, r=10, t=40, b=10),
+        )
+
+        st.plotly_chart(fig, use_container_width=True)
 
 with col3_r3:
-    st.subheader("Row 3 — Column 3")
-    st.write("Placeholder for chart.")
+    st.subheader("Total Revenue by Month")
+
+    if df_filtered.empty:
+        st.warning("No data available for the selected filters.")
+    else:
+        monthly_revenue = (
+            df_filtered.groupby(["Month_name", "Monthsort"])["money"]
+            .sum()
+            .reset_index()
+            .rename(columns={"money": "total_revenue"})
+            .sort_values("Monthsort")
+        )
+
+        month_order = (
+            monthly_revenue[["Month_name", "Monthsort"]]
+            .drop_duplicates()
+            .sort_values("Monthsort")["Month_name"]
+            .tolist()
+        )
+
+        fig = px.bar(
+            monthly_revenue,
+            x="Month_name",
+            y="total_revenue",
+            title="Total Revenue by Month",
+            text_auto=True,
+            category_orders={"Month_name": month_order},
+            color_discrete_sequence=["#6F4E37"]  # espresso brown
+        )
+
+        fig.update_layout(
+            xaxis_title="Month",
+            yaxis_title="Total Revenue ($)",
+            margin=dict(l=10, r=10, t=40, b=10),
+        )
+
+        st.plotly_chart(fig, use_container_width=True)
 
 
 # ───────────────────────────
