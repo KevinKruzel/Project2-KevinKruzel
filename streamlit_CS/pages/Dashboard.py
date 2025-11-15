@@ -121,7 +121,12 @@ with big_col_r2:
             .reset_index()
         )
 
-        heatmap_data = heatmap_data.sort_values(["Weekdaysort", "hour_of_day"])
+        weekday_order = (
+            heatmap_data[["Weekday", "Weekdaysort"]]
+            .drop_duplicates()
+            .sort_values("Weekdaysort")["Weekday"]
+            .tolist()
+        )
 
         pivot_table = heatmap_data.pivot_table(
             index="Weekday",
@@ -129,6 +134,10 @@ with big_col_r2:
             values="money",
             fill_value=0
         )
+
+        pivot_table = pivot_table.reindex(index=weekday_order)
+
+        pivot_table = pivot_table[sorted(pivot_table.columns)]
 
         fig = px.imshow(
             pivot_table,
