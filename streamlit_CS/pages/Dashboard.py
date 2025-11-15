@@ -7,6 +7,8 @@ import seaborn as sns
 import numpy as np
 from pathlib import Path
 
+COFFEE_CONTINUOUS = ["#F7F3EE", "#D2B48C", "#C19A6B", "#A47148", "#6F4E37", "#3B2F2F"]
+
 st.set_page_config(
     page_title="Coffee Sales Dashboard",
     page_icon="☕",
@@ -108,13 +110,44 @@ with col3_r1:
 big_col_r2, col3_r2 = st.columns([2, 1])
 
 with big_col_r2:
-    st.subheader("Row 2 — Columns 1 & 2")
-    st.write("Placeholder for primary dashboard chart.")
+    st.subheader("Sales Heatmap by Day and Hour")
+
+    if df_filtered.empty:
+        st.warning("No data available for the selected filters.")
+    else:
+        weekday_order = (
+            df_filtered[["Weekday", "Weekdaysort"]]
+            .drop_duplicates()
+            .sort_values("Weekdaysort")["Weekday"]
+            .tolist()
+        )
+
+        fig = px.density_heatmap(
+            df_filtered,
+            x="hour_of_day",
+            y="Weekday",
+            z="money",
+            histfunc="sum",
+            color_continuous_scale=COFFEE_CONTINUOUS,
+        )
+
+        fig.update_layout(
+            xaxis_title="Hour of Day (24-hour clock)",
+            yaxis_title="Day of Week",
+            coloraxis_colorbar_title="Total Revenue ($)",
+            margin=dict(l=10, r=10, t=40, b=10),
+        )
+
+        fig.update_yaxes(
+            categoryorder="array",
+            categoryarray=weekday_order
+        )
+
+        st.plotly_chart(fig, use_container_width=True)
 
 with col3_r2:
     st.subheader("Row 2 — Column 3")
     st.write("Placeholder for insights or explanation.")
-
 
 # ───────────────────────────
 # ROW 3
