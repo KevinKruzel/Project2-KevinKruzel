@@ -193,44 +193,39 @@ with col1_r3:
         st.plotly_chart(fig, use_container_width=True)
 
 with col2_r3:
-    st.subheader("Distribution of Hourly Revenue by Month")
+    st.subheader("Distribution of Sale Times by Month")
 
     if df_filtered.empty:
         st.warning("No data available for the selected filters.")
     else:
-        hourly_by_month = (
-            df_filtered
-            .groupby(["Month_name", "Monthsort", "hour_of_day"])["money"]
-            .sum()
-            .reset_index()
-            .rename(columns={"money": "hourly_revenue"})
-        )
-
-        hourly_by_month = hourly_by_month.sort_values("Monthsort")
+        # Ensure months are in the correct order using Monthsort
         month_order = (
-            hourly_by_month[["Month_name", "Monthsort"]]
+            df_filtered[["Month_name", "Monthsort"]]
             .drop_duplicates()
             .sort_values("Monthsort")["Month_name"]
             .tolist()
         )
 
+        # Boxplot of hour_of_day for each month (one point per sale)
         fig = px.box(
-            hourly_by_month,
+            df_filtered,
             x="Month_name",
-            y="hourly_revenue",
+            y="hour_of_day",
             category_orders={"Month_name": month_order},
-            title="Hourly Revenue Distribution by Month",
+            title="Hourly Sale Time Distribution by Month",
             color_discrete_sequence=["#8B5A2B"],  # coffee brown
         )
 
         fig.update_layout(
             xaxis_title="Month",
-            yaxis_title="Hourly Revenue ($)",
+            yaxis_title="Hour of Day (24-hour clock)",
             margin=dict(l=10, r=10, t=40, b=10),
         )
 
-        st.plotly_chart(fig, use_container_width=True)
+        # Optional: tidy up y-axis ticks
+        fig.update_yaxes(range=[0, 23], dtick=2)
 
+        st.plotly_chart(fig, use_container_width=True)
 with col3_r3:
     st.subheader("Total Revenue by Month")
 
