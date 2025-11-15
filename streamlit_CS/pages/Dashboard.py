@@ -115,32 +115,33 @@ with big_col_r2:
     if df_filtered.empty:
         st.warning("No data available for the selected filters.")
     else:
-        weekday_order = (
-            df_filtered[["Weekday", "Weekdaysort"]]
-            .drop_duplicates()
-            .sort_values("Weekdaysort")["Weekday"]
-            .tolist()
+        heatmap_data = (
+            df_filtered.groupby(["Weekday", "Weekdaysort", "hour_of_day"])["money"]
+            .sum()
+            .reset_index()
         )
 
-        fig = px.density_heatmap(
-            df_filtered,
-            x="hour_of_day",
-            y="Weekday",
-            z="money",
-            histfunc="sum",
+        heatmap_data = heatmap_data.sort_values(["Weekdaysort", "hour_of_day"])
+
+        pivot_table = heatmap_data.pivot_table(
+            index="Weekday",
+            columns="hour_of_day",
+            values="money",
+            fill_value=0
+        )
+
+        fig = px.imshow(
+            pivot_table,
+            text_auto=True,
+            aspect="auto",
             color_continuous_scale=COFFEE_CONTINUOUS,
+            labels=dict(color="Total Revenue ($)")
         )
 
         fig.update_layout(
             xaxis_title="Hour of Day (24-hour clock)",
             yaxis_title="Day of Week",
-            coloraxis_colorbar_title="Total Revenue ($)",
             margin=dict(l=10, r=10, t=40, b=10),
-        )
-
-        fig.update_yaxes(
-            categoryorder="array",
-            categoryarray=weekday_order
         )
 
         st.plotly_chart(fig, use_container_width=True)
