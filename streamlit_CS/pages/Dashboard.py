@@ -316,4 +316,6 @@ with col3_r4:
 # FOOTER
 # ───────────────────────────
 st.divider()
-st.caption("Footer text or data source reference goes here.")
+st.caption("**Data source:** https://www.kaggle.com/datasets/kainatjamil12/coffe-sale/data")
+last_refreshed = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+st.caption(f"Last refreshed: {last_refreshed} (local time)")
