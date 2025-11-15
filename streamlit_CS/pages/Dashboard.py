@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 import datetime
+from zoneinfo import ZoneInfo
 from pathlib import Path
 
 COFFEE_CONTINUOUS = ["#F7F3EE", "#D2B48C", "#C19A6B", "#A47148", "#6F4E37", "#3B2F2F"]
@@ -318,5 +319,6 @@ with col3_r4:
 # ───────────────────────────
 st.divider()
 st.caption("**Data source:** https://www.kaggle.com/datasets/kainatjamil12/coffe-sale/data")
-last_refreshed = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+local_time = datetime.datetime.now(ZoneInfo("America/Denver"))
+last_refreshed = local_time.strftime("%Y-%m-%d %I:%M %p")
 st.caption(f"Last refreshed: {last_refreshed} (local time)")
