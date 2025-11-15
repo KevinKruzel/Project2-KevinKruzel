@@ -89,7 +89,6 @@ else:
 col1_r1, col2_r1, col3_r1 = st.columns(3)
 
 with col1_r1:
-    st.subheader("Total Revenue")
     if df_filtered.empty:
         st.metric(label="Total Revenue", value="$0")
     else:
@@ -100,7 +99,6 @@ with col1_r1:
         )
 
 with col2_r1:
-    st.subheader("Average Revenue per Sale")
     if df_filtered.empty:
         st.metric(label="Avg Revenue / Sale", value="$0")
     else:
@@ -111,7 +109,6 @@ with col2_r1:
         )
 
 with col3_r1:
-    st.subheader("Total Sales Count")
     if df_filtered.empty:
         st.metric(label="Total Sales", value="0")
     else:
@@ -174,8 +171,14 @@ with big_col_r2:
         st.plotly_chart(fig, use_container_width=True)
 
 with col3_r2:
-    st.subheader("Row 2 — Column 3")
-    st.write("Placeholder for insights or explanation.")
+    st.markdown("""
+- Revenue peaks consistently in the morning hours, particularly between 10 AM and Noon.
+- There is a noticeable secondary revenue spike in the evening hours on some weekdays.
+- Weekends tend to show lower early-morning activity and more spread throughout the day.
+- Certain weekdays show stronger and more consistent activity than others, notably Monday and Tuesday.
+- Very late-night and early-morning hours produce little to no revenue.
+- Filtering specific date ranges shows that these patterns shift based on seasonal or promotional periods.
+    """)
 
 # ───────────────────────────
 # ROW 3
@@ -183,8 +186,6 @@ with col3_r2:
 col1_r3, col2_r3, col3_r3 = st.columns(3)
 
 with col1_r3:
-    st.subheader("Revenue by Coffee Type")
-
     if df_filtered.empty:
         st.warning("No data available for the selected filters.")
     else:
@@ -214,8 +215,6 @@ with col1_r3:
         st.plotly_chart(fig, use_container_width=True)
 
 with col2_r3:
-    st.subheader("Distribution of Sale Times by Month")
-
     if df_filtered.empty:
         st.warning("No data available for the selected filters.")
     else:
@@ -245,8 +244,6 @@ with col2_r3:
 
         st.plotly_chart(fig, use_container_width=True)
 with col3_r3:
-    st.subheader("Total Revenue by Month")
-
     if df_filtered.empty:
         st.warning("No data available for the selected filters.")
     else:
@@ -290,16 +287,29 @@ with col3_r3:
 col1_r4, col2_r4, col3_r4 = st.columns(3)
 
 with col1_r4:
-    st.subheader("Row 4 — Column 1")
-    st.write("Placeholder for explanation text.")
+    st.markdown("""
+- A few coffee types contribute a disproportionately large share of total revenue.
+- Less popular drinks show significantly lower revenue, indicating possible opportunities for promotion or removal.
+- The mix of revenue by drink type appear relatively consist when hourly filters are applied.
+- Distribution of coffee types appear consistent even when date filters are applied.
+    """)
 
 with col2_r4:
-    st.subheader("Row 4 — Column 2")
-    st.write("Placeholder for explanation text.")
+        st.markdown("""
+- The median amount of sales varys greatly across each month.
+- Some months show a wider spread in sale times, indicating varied traffic patterns.
+- Each month has about the same distribution in sales across the length of the day.
+- Seasonal differences appear visible, with some months shifting later or earlier in the day.
+    """)
 
 with col3_r4:
-    st.subheader("Row 4 — Column 3")
-    st.write("Placeholder for explanation text.")
+        st.markdown("""
+- Revenue varies significantly month to month, with some months showing clear peaks such as March and October.
+- The top-revenue months likely correspond to seasonal demand increases, notably in the spring and fall.
+- Some months show noticeably lower revenue, suggesting slower seasonal business periods, notably in summer and winter.
+- Applying filters reveals which months rely most heavily on certain coffee types or time-of-day peaks.
+- The gap between high and low revenue months demonstrates meaningful fluctuations in demand.
+    """)
 
 
 # ───────────────────────────
