@@ -233,7 +233,7 @@ with col2_r3:
             y="hour_of_day",
             category_orders={"Month_name": month_order},
             title="Hourly Sale Time Distribution by Month",
-            color_discrete_sequence=["#8B5A2B"],  # coffee brown
+            color_discrete_sequence=["#8B5A2B"],
         )
 
         fig.update_layout(
@@ -249,39 +249,41 @@ with col3_r3:
     if df_filtered.empty:
         st.warning("No data available for the selected filters.")
     else:
+        # Add Year from Date for grouping
+        temp = df_filtered.copy()
+        temp["Year"] = temp["Date"].dt.year
+
         monthly_revenue = (
-            df_filtered.groupby(["Month_name", "Monthsort"])["money"]
+            temp.groupby(["Year", "Month_name", "Monthsort"])["money"]
             .sum()
             .reset_index()
             .rename(columns={"money": "total_revenue"})
-            .sort_values("Monthsort")
+            .sort_values(["Year", "Monthsort"])
         )
 
-        month_order = (
-            monthly_revenue[["Month_name", "Monthsort"]]
-            .drop_duplicates()
-            .sort_values("Monthsort")["Month_name"]
-            .tolist()
+        monthly_revenue["Month_Year"] = (
+            monthly_revenue["Month_name"] + " " + monthly_revenue["Year"].astype(str)
         )
+
+        month_order = monthly_revenue["Month_Year"].tolist()
 
         fig = px.bar(
             monthly_revenue,
-            x="Month_name",
+            x="Month_Year",
             y="total_revenue",
-            title="Total Revenue by Month",
+            title="Total Revenue by Month (Year-Aware)",
             text_auto=True,
-            category_orders={"Month_name": month_order},
-            color_discrete_sequence=["#A47148"]
+            category_orders={"Month_Year": month_order},
+            color_discrete_sequence=["#A47148"],
         )
 
         fig.update_layout(
-            xaxis_title="Month",
+            xaxis_title="Month (Year)",
             yaxis_title="Total Revenue ($)",
             margin=dict(l=10, r=10, t=40, b=10),
         )
 
         st.plotly_chart(fig, use_container_width=True)
-
 
 # ───────────────────────────
 # ROW 4
