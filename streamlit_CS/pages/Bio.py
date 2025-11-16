@@ -10,23 +10,20 @@ st.set_page_config(
 
 st.title("Biography")
 
-col1, col2 = st.columns([1, 2])
-
-with col1:
-    st.subheader("Profile")
-    st.markdown(
-        """
+st.subheader("Profile")
+st.markdown(
+    """
 Kevin Kruzel  
 Undergraduate Mathematics Student  
 MSU Denver  
+Email: kkruzel1@msudenver.edu
         """
     )
 
-with col2:
-    st.subheader("Professional Summary")
+st.subheader("Professional Summary")
 
-    st.markdown(
-        """
+st.markdown(
+    """
 I’m an undergraduate Mathematics student at MSU Denver with a strong focus on data science,
 statistics, and analytics. Most of my work combines Python, R, and SQL with tools like Pandas,
 Plotly, and Streamlit to explore real-world datasets and communicate insights clearly.
