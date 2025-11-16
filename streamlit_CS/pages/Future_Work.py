@@ -26,6 +26,8 @@ st.subheader("Reflection: From Lab 4.3 Prototype to Final Build")
 
 st.markdown(
     """
-- 
+- The prototype that I had helped to create for lab 4.3 was much more simplistic and generalized for its purpose.
+- The final product had many more details/features that were not present in the prototype.
+- The sidebar was not at all considered for the prototype, which was monumentally important for the functionality of the final product.
     """
 )
