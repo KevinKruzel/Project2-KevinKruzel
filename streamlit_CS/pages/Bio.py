@@ -30,7 +30,7 @@ Plotly, and Streamlit to explore real-world datasets and communicate insights cl
 I’m especially interested in machine learning, data visualization, and statistics. I
 enjoy building small analytical products that I can apply to my interests outside of school,
 which include tabletop games and video games. My long-term goal is to work in a role where I can
-turn messy data into clear and visually appealing stories for everyone to see and ejoy.
+turn messy data into clear and visually appealing stories for everyone to see and enjoy.
         """
     )
 
@@ -39,7 +39,7 @@ st.subheader("Highlights")
 st.markdown(
     """
 - Coursework in Mathematics, Data Science, and Statistics at MSU Denver.
-- Experience with Python, R , and SQL.
+- Experience with Java, Python, R , and SQL.
 - Comfortable building interactive dashboards and apps in Streamlit with Plotly.
 - Hands-on projects in data visualization and machine learning.
     """
