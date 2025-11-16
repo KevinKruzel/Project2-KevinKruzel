@@ -308,7 +308,7 @@ with col2_r4:
 
 with col3_r4:
         st.markdown("""
-- Revenue varies significantly month to month, with some months showing clear peaks such as March and October.
+- Revenue varies significantly month to month, with some months showing clear peaks such as October and February.
 - The top-revenue months likely correspond to seasonal demand increases, notably in the spring and fall.
 - Some months show noticeably lower revenue, suggesting slower seasonal business periods, notably in summer and winter.
 - Applying filters reveals which months rely most heavily on certain coffee types or time-of-day peaks.
