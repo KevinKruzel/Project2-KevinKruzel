@@ -14,9 +14,9 @@ Email: kkruzel1@msudenver.edu
 The app consists of several pages:
 **Professional Bio:** Short background, skill highlights, and visualization philosophy.
 **EDA Gallery:** Exploratory analysis visualizations with explanations and insights.
-![EDA Screenshot](streamlit_CS/screenshots/Project 2 EDA Gallery Screenshot.png)
+![EDA Screenshot](streamlit_CS/screenshots/Project%202%20EDA%20Gallery%20Screenshot.png)
 **Dashboard:** Interactive filtering (date, hour, and coffee type) powering dynamic revenue & sales KPIs and charts.
-![Dashboard Screenshot](streamlit_CS/screenshots/Project 2 Dashboard Screenshot.png)
+![Dashboard Screenshot](streamlit_CS/screenshots/Project%202%20Dashboard%20Screenshot.png)
 **Future Work:** Planned improvements and reflection on prototype-to-product development.
 
 ## Dataset Information
@@ -38,5 +38,5 @@ Dependencies are listed in `requirements.txt`
 
 ## AI Assitance Acknowledgment
 - Portions of code structure (mostly regarding visualizations and more technical details) were assisted by ChatGPT.
-- All implementation and creative decisions and final code were reviewed and customized by the Kevin Kruzel.
+- All implementation and creative decisions and final code were reviewed and customized by Kevin Kruzel.
 
