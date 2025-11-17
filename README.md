@@ -12,9 +12,11 @@ Email: kkruzel1@msudenver.edu
 ## App Navigation Overview
 
 The app consists of several pages:
-**EDA Gallery:** Exploratory analysis visualizations with explanations and insights.
-**Dashboard:** Interactive filtering (date, hour, and coffee type) powering dynamic revenue & sales KPIs and charts.
 **Professional Bio:** Short background, skill highlights, and visualization philosophy.
+**EDA Gallery:** Exploratory analysis visualizations with explanations and insights.
+![EDA Screenshot](streamlit_CS/screenshots/Project 2 EDA Gallery Screenshot.png)
+**Dashboard:** Interactive filtering (date, hour, and coffee type) powering dynamic revenue & sales KPIs and charts.
+![Dashboard Screenshot](streamlit_CS/screenshots/Project 2 Dashboard Screenshot.png)
 **Future Work:** Planned improvements and reflection on prototype-to-product development.
 
 ## Dataset Information
